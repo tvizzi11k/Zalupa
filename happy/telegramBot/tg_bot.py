@@ -5,7 +5,7 @@ TOKEN = '7120451302:AAFmiJriqQlj0aDohxsBjIRdTQbbJOMEyhs'
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard =[
-        [InlineKeyboardButton("голые сиськи", web_app=WebAppInfo(url="https://www.youtube.com/watch?v=Cxmvq1MCR3c"))]
+        [InlineKeyboardButton("голые сиськи", web_app=WebAppInfo(url="http://my.porno365.expert/"))]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("порно видео секс", reply_markup=reply_markup)
