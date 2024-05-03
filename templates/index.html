@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no">
-  <link rel="stylesheet" href="index.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'index.css' %}">
+  {% load static %}
+  <img src="{% static 'static' %}" alt="images">
   <title>Document</title>
 </head>
 <body>
@@ -50,9 +53,9 @@
           <p>09/23</p>
         </div>
       </div>
-      <form style="position: relative;">
-        <input class="form-input__control" type="text" id="inputSearch" placeholder="Введите промокод">
-        <button class="form-input__btn" type="submit">Отправить</button>
+      <form class="has-success has-feedback has-feedback-left">
+        <input class="form-control" type="text" id="inputSearch" placeholder="Введите промокод">
+        <button class="btn" type="submit">Отправить</button>
       </form>
     </div>
   <!--Waves Container-->
@@ -78,5 +81,9 @@
 
   </div>
   <!--Content ends-->
+  <div style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">{{ message }}</div>
+   
+
+
 </body>
 </html>
