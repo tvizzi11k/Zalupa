@@ -50,13 +50,13 @@ table {
 h1 {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 30px;
 }
 p {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: bold;
+  font-weight: 300;
   font-size: 20px;
 }
 
