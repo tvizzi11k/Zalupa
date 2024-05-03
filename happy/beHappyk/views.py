@@ -23,4 +23,4 @@ def home(request):
         except Promocode.DoesNotExist:
             messages.error(request, "Промокода не существует.")
     
-    return render(request, 'index.html', {'message': messages.get_messages(request)})
+    return render(request, 'index.html', {'message': messages.get_messages(request)}) #подключить некст пейдж ко всей этой залупке + в контролер заебашить 
