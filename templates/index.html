@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no">
-  <link rel="stylesheet" href="index.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'index.css' %}">
+  {% load static %}
+  <img src="{% static 'static' %}" alt="images">
   <title>Document</title>
 </head>
 <body>
@@ -50,8 +53,9 @@
           <p style="font-size: 20px; text-align: left; margin-top: 40px; margin-right: 10px;">09/23</p>
         </div>
       </div>
-      <form class="has-success has-feedback has-feedback-left">
-        <input class="form-control" type="text" id="inputSearch" placeholder="Введите промокод">
+      <form method="post" action="{% url 'home' %}" class="has-success has-feedback has-feedback-left" >
+        {% csrf_token %}
+        <input class="form-control" type="text" id="inputSearch" placeholder="Введите промокод" name="promocode">
         <button class="btn" type="submit">Отправить</button>
       </form>
     </div>
@@ -87,5 +91,9 @@
 
   </div>
   <!--Content ends-->
+  <div style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">{{ message }}</div>
+   
+
+
 </body>
 </html>
