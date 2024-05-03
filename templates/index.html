@@ -10,14 +10,14 @@
   <div class="header">
   <!--Content before waves-->
     <div class="inner-header flex">
-      <img src="./img/IMG_5526.PNG" alt="logo" height="100" style="margin-top: 10px;">
-      <div class="www" style="border: solid 0px; border-radius: 10px; width: 350px; height: 235px; display: flex; flex-direction: column; padding: 5px 5px 5px 5px; box-shadow: 0px 6px 11px 10px rgba(0, 0, 0, 0.2); background-image: linear-gradient(241deg, rgb(210, 155, 216, 1) 0% ,rgb(136, 118, 236, 1) 100%);">
+      <img src="./img/logoBEHAPPY.PNG" alt="logo-BEHAPPY" height="120" class="header__logo">
+      <div class="card">
         <div class="card-top">
           <p>Current Balance</p>
-          <img src="./img/logo container.png" alt="visa" height="40" class="visa">
+          <img src="./img/logo-visa.png" alt="visa" height="30">
         </div>
         <div class="counter"> 
-        <p>$ 1 000 000</p>
+          <h1>$ 1 000 000</h1>
         </div>
         <ul class="card-number">
           <li class="card-number__item">
@@ -45,17 +45,16 @@
             <div class="card-number__value dots">4</div>
           </li>
         </ul>
-        <div class="down" style="display: flex; flex-direction: row; justify-content: space-between;">
-          <p style="font-size: 20px; text-align: left; margin-top: 40px;">Happy bank</p>
-          <p style="font-size: 20px; text-align: left; margin-top: 40px; margin-right: 10px;">09/23</p>
+        <div class="card-down">
+          <p>Happy bank</p>
+          <p>09/23</p>
         </div>
       </div>
-      <form class="has-success has-feedback has-feedback-left">
-        <input class="form-control" type="text" id="inputSearch" placeholder="Введите промокод">
-        <button class="btn" type="submit">Отправить</button>
+      <form style="position: relative;">
+        <input class="form-input__control" type="text" id="inputSearch" placeholder="Введите промокод">
+        <button class="form-input__btn" type="submit">Отправить</button>
       </form>
     </div>
-  
   <!--Waves Container-->
     <div>
       <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:waves="http://www.w3.org/1999/xlink"
@@ -63,9 +62,6 @@
           <defs>
             <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
           </defs>
-          <!-- <defs>
-            <path id="gentle-wave" d="M-160 44c30 0 58-18 98-28s 58 18 98 28 58-18 98-28 58 28 98 18 v44h-352z" />
-          </defs> -->
           <g class="parallax">
             <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7)" />
             <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
@@ -75,13 +71,8 @@
       </svg>
     </div>
   <!--Waves end-->
-  
   </div>
   <!--Header ends-->
-  
-  <!--Content starts-->
-  <div class="content flex">
-  </div>
   
   <div class="footer flex">
 
