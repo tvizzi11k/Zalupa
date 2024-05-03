@@ -1,3 +1,7 @@
+/*шрифты*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*reset css*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -17,6 +21,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -42,38 +47,21 @@ table {
 	border-spacing: 0;
 }
 
-@import url(//fonts.googleapis.com/css?family=Lato:300:400);
-
-body {
-  margin:0;
-  boox-size: border-box;
-}
-
 h1 {
-  font-family: 'Lato', sans-serif;
-  font-weight:300;
-  letter-spacing: 2px;
-  font-size:48px;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-size: 30px;
 }
 p {
-  font-family: 'Lato', sans-serif;
-  letter-spacing: 1px;
-  font-size: 25px;
-  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: bold;
-  margin-left: 10px;
-  margin-top: 13px;
+  font-size: 20px;
 }
 
-.card-number__value{
-  font-family: 'Lato', sans-serif;
-  letter-spacing: 1px;
-  font-size: 14px;
-  color: white;
-}
-
-.visa{
-  margin-top: 5px;
+.mr-10{
+  margin-top:10px;
 }
 
 .flex { /*Flexbox for containers*/
@@ -83,56 +71,95 @@ p {
   text-align: center;
 }
 
+/* весь контент, распологающийся до волны */
 .header {
-  position:relative;
-  text-align:center;
+  position: relative;
+  text-align: center;
   background: linear-gradient(180deg, rgba(0,172,193,1) 0% ,rgb(300,114,221,1) 100%);
-  color:white;
+  color: white;
 }
 
 .inner-header {
-  height:65vh;
-  width:100%;
+  height: 65vh;
+  width: 100%;
   margin: 0;
-  padding: 10px 0 0 0;
+  padding-top: 10px;
 }
 
-//стили карточки
-.www {
+.header__logo{
+  margin-top: 10px;
+}
+
+/* стили карточки */
+.card{
+  border: solid 0px;
+  border-radius: 10px;
+  width: 350px;
+  height: 200px;
   display: flex;
   flex-direction: column;
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
-  border: solid;
+  padding: 5px;
+  box-shadow: 0px 6px 11px 10px rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(241deg, rgb(210, 155, 216, 1) 0% ,rgb(136, 118, 236, 1) 100%)
 }
 
 .card-top{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.counter{
+  margin-top: 10px; 
+  text-align: left;
 }
 
 .card-number{
   display: flex;
   flex-direction: row;
-  margin: 50px 0 0 0 ; 
+  margin-top: 35px; 
   justify-content: space-around;
   align-items: center
 }
 
-.form-control{  
+.card-number__item{
+  display: flex;
+  flex-direction: row;
+}
+
+.card-number__value{
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size: 14px;
+  color: white;
+}
+
+.dots{
+  margin-right: 5px
+}
+
+.card-down{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 34px;
+}
+
+/* стили input */
+.form-input{
+  position: relative;
+}
+
+.form-input__control{
   padding: 15px;
   width: 340px;
   border-radius: 10px;
   margin-top: 45px;
 }
 
-.has-success{
-  position: relative;
-}
-
-.btn{
+.form-input__btn{
   position: absolute;
   right: 6px;
   top: 4px;
@@ -142,50 +169,21 @@ p {
   border-radius: 10px;
 }
 
-.counter{
-  margin: 10px 0 0 0 ; 
-  text-align: left;
-}
-
-.dots{
-  margin-right: 5px
-}
-
-.card-number__item{
-  display: flex;
-  flex-direction: row;
-}
-
+/* волны */
 .waves {
-  position:relative;
+  position: relative;
   width: 100%;
   height: 15vh;
-  margin-bottom:-7px; /*Fix for safari gap*/
-  min-height:100px;
-  max-height:150px;
+  margin-bottom: -7px; /*Fix for safari gap*/
+  min-height: 100px;
+  max-height: 150px;
 }
-
-.content {
-  height:100vh;
-  text-align:center;
+/* футер */
+.footer{
+  height: 280px;
+  text-align: center;
   background: linear-gradient(180deg, #fff 0% ,rgb(000,00,0,1) 100%);
 }
-
-.footer{
-  height: 100px;
-  background: black;
-}
-
-
-
-
-
-
-
-
-
-
-
 
 /* Animation */
 
@@ -216,6 +214,7 @@ p {
     transform: translate3d(85px,0,0);
   }
 }
+
 /*Shrinking for mobile*/
 @media (max-width: 768px) {
   .waves {
@@ -224,8 +223,5 @@ p {
   }
   .content {
     height:30vh;
-  }
-  h1 {
-    font-size:24px;
   }
 }
