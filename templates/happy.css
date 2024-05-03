@@ -1,0 +1,231 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+body {
+  margin:0;
+  boox-size: border-box;
+}
+
+h1 {
+  font-family: 'Lato', sans-serif;
+  font-weight:300;
+  letter-spacing: 2px;
+  font-size:48px;
+}
+p {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-top: 13px;
+}
+
+.card-number__value{
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size: 14px;
+  color: white;
+}
+
+.visa{
+  margin-top: 5px;
+}
+
+.flex { /*Flexbox for containers*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header {
+  position:relative;
+  text-align:center;
+  background: linear-gradient(180deg, rgba(0,172,193,1) 0% ,rgb(300,114,221,1) 100%);
+  color:white;
+}
+
+.inner-header {
+  height:65vh;
+  width:100%;
+  margin: 0;
+  padding: 10px 0 0 0;
+}
+
+//стили карточки
+.www {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  border: solid;
+}
+
+.card-top{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-number{
+  display: flex;
+  flex-direction: row;
+  margin: 50px 0 0 0 ; 
+  justify-content: space-around;
+  align-items: center
+}
+
+.form-control{  
+  padding: 15px;
+  width: 340px;
+  border-radius: 10px;
+  margin-top: 45px;
+}
+
+.has-success{
+  position: relative;
+}
+
+.btn{
+  position: absolute;
+  right: 6px;
+  top: 4px;
+  padding: 10px;
+  background: #8876ec;
+  top: 50px;
+  border-radius: 10px;
+}
+
+.counter{
+  margin: 10px 0 0 0 ; 
+  text-align: left;
+}
+
+.dots{
+  margin-right: 5px
+}
+
+.card-number__item{
+  display: flex;
+  flex-direction: row;
+}
+
+.waves {
+  position:relative;
+  width: 100%;
+  height: 15vh;
+  margin-bottom:-7px; /*Fix for safari gap*/
+  min-height:100px;
+  max-height:150px;
+}
+
+.content {
+  height:100vh;
+  text-align:center;
+  background: linear-gradient(180deg, #fff 0% ,rgb(000,00,0,1) 100%);
+}
+
+.footer{
+  height: 100px;
+  background: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Animation */
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  100% { 
+    transform: translate3d(85px,0,0);
+  }
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .waves {
+    height:40px;
+    min-height:40px;
+  }
+  .content {
+    height:30vh;
+  }
+  h1 {
+    font-size:24px;
+  }
+}
