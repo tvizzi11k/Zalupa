@@ -5,10 +5,10 @@ TOKEN = '7120451302:AAFmiJriqQlj0aDohxsBjIRdTQbbJOMEyhs'
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard =[
-        [InlineKeyboardButton("голые сиськи", web_app=WebAppInfo(url="https://behappyhappyhappy1488.netlify.app/"))]
+        [InlineKeyboardButton("открыть", web_app=WebAppInfo(url="https://behappyhappyhappy1488.netlify.app/"))]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("порно видео секс", reply_markup=reply_markup)
+    await update.message.reply_text("сайт", reply_markup=reply_markup)
 
 def setup_bot():
     application = Application.builder().token(TOKEN).build()
