@@ -20,6 +20,8 @@ from beHappyk import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
+    path('', views.registration, name='registration'),
     path('home/', views.home, name='home'),
+    path('telegram/callback/', views.telegram_callback, name='telegram_callback'),
+    path('registration/', views.registration, name='registration'),  
 ]
