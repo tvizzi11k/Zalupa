@@ -11,10 +11,6 @@ from django.contrib.auth import login, authenticate
 import requests
 
 
-
-
-
-
 def registration(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -60,7 +56,7 @@ def telegram_callback(request):
                 if user_info_response.status_code == 200:
                     user_info = user_info_response.json()
                     telegram_id = user_info.get('id')
-                    username = user_info.get('username', f'user_{telegram_id}')  # Если username не доступен, создаем временный
+                    username = user_info.get('username', f'user_{telegram_id}')  
 
                     user, created = User.objects.update_or_create(
                         telegram_id=telegram_id,
