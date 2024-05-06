@@ -1,5 +1,5 @@
 /*шрифты*/
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 /*reset css*/
 html, body, div, span, applet, object, iframe,
@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+  position: relative;
 }
 ol, ul {
 	list-style: none;
@@ -48,20 +49,22 @@ table {
 }
 
 h1 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Press Start 2P", system-ui;
   font-optical-sizing: auto;
-  font-weight: 600;
-  font-size: 30px;
-}
-p {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 20px;
 }
+p {
+  font-family: "Press Start 2P", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 15px;
+}
 
-.mr-10{
-  margin-top:10px;
+.container{
+  background-image: url('./img/bg.gif');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .flex { /*Flexbox for containers*/
@@ -75,7 +78,7 @@ p {
 .header {
   position: relative;
   text-align: center;
-  background: linear-gradient(180deg, rgba(0,172,193,1) 0% ,rgb(300,114,221,1) 100%);
+
   color: white;
 }
 
@@ -99,8 +102,11 @@ p {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  box-shadow: 0px 6px 11px 10px rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(241deg, rgb(210, 155, 216, 1) 0% ,rgb(136, 118, 236, 1) 100%)
+  box-shadow: 0px 10px 30px 15px rgba(0,255,255,0.7),
+  1px 2px 4px 0px rgba(0,255,255,0.7),
+  2px 4px 8px 0px rgba(0,255,255,0.7),
+  2px 4px 16px 0px rgba(0,255,255,0.7);
+  background-image: linear-gradient(241deg, rgb(000, 000, 000, 0.4) 0% ,rgb(136, 118, 236, 0.8) 100%)
 }
 
 .card-top{
@@ -153,19 +159,36 @@ p {
 }
 
 .form-input__control{
-  padding: 15px;
+  padding: 17px;
   width: 340px;
   border-radius: 10px;
-  margin-top: 45px;
+  border: none;
+  margin-top: 100px;
+  background-color: rgb(0,0,0);
+  color: white;
+  font-family: "Press Start 2P", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 10px;
+  opacity: 0.7;
+  box-shadow: 0px 10px 30px 15px rgba(0,255,255,0.7),
+  1px 2px 4px 0px rgba(0,255,255,0.7),
+  2px 4px 8px 0px rgba(0,255,255,0.7),
+  2px 4px 16px 0px rgba(0,255,255,0.7);
 }
 
 .form-input__btn{
   position: absolute;
+  height: 43px;
   right: 6px;
-  top: 4px;
-  padding: 10px;
-  background: #8876ec;
-  top: 50px;
+  padding: 12px;
+  background: rgba(0,255,255,0.7);
+  font-family: "Press Start 2P", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 10px;
+  top: 100px;
+  right: 2px;
   border-radius: 10px;
 }
 
@@ -182,12 +205,42 @@ p {
 .footer{
   height: 280px;
   text-align: center;
-  background: linear-gradient(180deg, #fff 0% ,rgb(000,00,0,1) 100%);
 }
 
+.nav-menu {
+  height: 310px;
+  border-radius: 10px;
+  width: 97%;
+  margin-top: 58%;
+  background-color: rgba(0,0,0, 0.1);
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0px -5px 10px 5px rgba(0, 255, 255, 0.5), 1px 2px 4px 0px rgba(0, 255, 255, 0.3), 2px 4px 8px 0px rgba(0, 255, 255, 0.2);
+}
+
+.nav-menu_cnt{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.nav-menu_btn{
+  width: 60px;
+  height: 60px;
+  border: 0px solid;
+  border-radius: 10px;
+  box-shadow: 0px 0px 0px 2px rgba(111,111,111,0.5), 
+  0px 2px 4px rgba(111,111,111,0.1),
+  0px 4px 8px rgba(111,111,111,0.1),
+  0px 8px 16px rgba(111,111,111,0.1);
+}
 /* Animation */
 
-.parallax > use {
+/* .parallax > use {
   animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
 }
 .parallax > use:nth-child(1) {
@@ -213,7 +266,7 @@ p {
   100% { 
     transform: translate3d(85px,0,0);
   }
-}
+} */
 
 /*Shrinking for mobile*/
 @media (max-width: 768px) {
