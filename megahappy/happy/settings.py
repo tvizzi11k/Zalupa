@@ -28,8 +28,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['176-99-11-185.cloudvps.regruhosting.ru']
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
