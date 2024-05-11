@@ -4,6 +4,3 @@ services:
     restart: unless-stopped
     build: .
     network_mode: host
-    volumes:
-      - /run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock
-      - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
