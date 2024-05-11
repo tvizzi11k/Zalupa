@@ -24,10 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-gl^$9%dlkv56!#g)_r_8nz@)o!tfdwny)+r2)$i56ap6zz)hg='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['176-99-11-185.cloudvps.regruhosting.ru']
 
 # Application definition
 
@@ -81,7 +80,7 @@ DATABASES = {
         'NAME': 'beHappyDb',
         'USER': 'admin',
         'PASSWORD': 'beHappy1234',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
