@@ -1,7 +1,7 @@
-from pytonconnect.storage import IStorage, DefaultStorage
+from pytonconnect.storage import IStorage
+import redis.asyncio as redis
 
-
-storage = {}
+client = redis.Redis(host='localhost', port=6379)
 
 
 class TcStorage(IStorage):
@@ -13,10 +13,11 @@ class TcStorage(IStorage):
         return str(self.chat_id) + key
 
     async def set_item(self, key: str, value: str):
-        storage[self._get_key(key)] = value
+        await client.set(name=self._get_key(key), value=value)
 
     async def get_item(self, key: str, default_value: str = None):
-        return storage.get(self._get_key(key), default_value)
+        value = await client.get(name=self._get_key(key))
+        return value.decode() if value else default_value
 
     async def remove_item(self, key: str):
-        storage.pop(self._get_key(key))
+        await client.delete(self._get_key(key))
