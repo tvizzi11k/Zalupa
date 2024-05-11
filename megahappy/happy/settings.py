@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-gl^$9%dlkv56!#g)_r_8nz@)o!tfdwny)+r2)$i56ap6zz)hg='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['176-99-11-185.cloudvps.regruhosting.ru']
+ALLOWED_HOSTS = ['176-99-11-185.cloudvps.regruhosting.ru', 'localhost', '127.0.0.1']
 
 # Application definition
 
