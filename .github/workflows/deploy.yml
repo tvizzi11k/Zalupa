@@ -1,0 +1,20 @@
+name: Deploy app
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  prepare-environment:
+    runs-on: self-hosted
+    steps:
+      - name: Stop and remove containers, networks
+        run: docker compose down
+  deploy:
+    runs-on: self-hosted
+    needs: prepare-environment
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Build and start container
+        run: docker compose up -d --build

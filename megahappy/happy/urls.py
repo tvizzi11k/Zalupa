@@ -20,7 +20,6 @@ from beHappyk import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.register, name='registration'),
-    path('home/', views.home, name='home'),
-    path('registration/', views.register, name='registration'),  
+    path('', views.home, name='home'),
+    path('home/', views.home, name='home'), 
 ]

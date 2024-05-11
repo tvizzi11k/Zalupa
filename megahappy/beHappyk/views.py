@@ -18,15 +18,5 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')  # Перенаправляем на страницу home после успешной регистрации
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration.html', {'form': form})
-
 
 
