@@ -5,10 +5,18 @@ on:
     branches: [ "main" ]
 
 jobs:
-  deploy:
+  prepare-environment:
     runs-on: self-hosted
     steps:
-      - name: checkout repo
+      - name: Stop and remove containers, networks
+        run: docker compose down
+      - name: Remove unused data
+        run: docker system prune -a -f
+  deploy:
+    runs-on: self-hosted
+    needs: prepare-environment
+    steps:
+      - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: docker-compose
+      - name: Build and start container
         run: docker compose up -d --build
