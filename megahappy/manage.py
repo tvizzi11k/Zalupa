@@ -2,7 +2,14 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import asyncio
+from pytonconnect import TonConnect
 
+
+async def a():
+    connector = TonConnect(manifest_url='https://176-99-11-185.cloudvps.regruhosting.ru/static/ton.json')
+    is_connected = await connector.restore_connection()
+    print('is_connected:', is_connected)
 
 def main():
     """Run administrative tasks."""
@@ -19,4 +26,5 @@ def main():
 
 
 if __name__ == '__main__':
+    asyncio.get_event_loop().run_until_complete(a())
     main()

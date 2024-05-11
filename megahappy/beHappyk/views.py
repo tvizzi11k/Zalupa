@@ -11,12 +11,6 @@ from django.contrib.auth import login, authenticate
 import requests
 from django.contrib.auth.forms import UserCreationForm
 
-
-
 def home(request):
     context = {}
     return render(request, 'home.html', context)
-
-
-
-
