@@ -10,14 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 import requests
 from django.contrib.auth.forms import UserCreationForma
-import asyncio
-from pytonconnect import TonConnect
 
 
 async def home(request):
-    connector = TonConnect(manifest_url='https://176-99-11-185.cloudvps.regruhosting.ru/static/ton.json')
-    is_connected = await connector.restore_connection()
-    print('is_connected:', is_connected)
-
     context = {}
     return render(request, 'home.html', context)
