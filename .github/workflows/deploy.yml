@@ -1,0 +1,16 @@
+name: Deploy app
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: change directory
+        run: cd Zalupa
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: docker-compose
+        run: docker-compose up -d --build
