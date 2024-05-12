@@ -86,16 +86,31 @@ p {
   padding-top: 50%;
 }
 
-.ton-cnt-btn{
+button[data-tc-button="true"] {
+  width: 600px;
+  height: 131px;
+  align-items: center;
+  text-align: center;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0px -5px 10px 5px rgba(0, 255, 255, 0.5), 1px 2px 4px 0px rgba(0, 255, 255, 0.3), 2px 4px 8px 0px rgba(0, 255, 255, 0.2);
+  font-family: "Press Start 2P", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 20px;
 }
 
-.go3974562317 {
-  background-color: #0098EA;
-  color: #FFFFFF;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.16);
-  padding: 8px 16px 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  height: 60px;
+[data-tc-modal="true"]{
+  width: 100%;
+  height: 100%;
+}
+
+.go1383659099 {
+  position: relative;
+  min-height: 100px;
+  width: 700px;
+  padding: 44px 56px 24px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+  background-color: #FFFFFF;
+  border-radius: 24px;
 }
