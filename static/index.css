@@ -395,6 +395,9 @@ a.disabled {
   }
 }
 
+.ton-cnt-btn{
+  
+}
 
 @media screen and ( min-height: 768px) and (max-height: 900px){
   .inner-header {
