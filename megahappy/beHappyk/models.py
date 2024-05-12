@@ -6,7 +6,7 @@ class User(models.Model):
     key = models.CharField(max_length=255)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
-    USERNAME_FIELD = 'username'
+    
 
 class Promocode(models.Model):
     code = models.CharField(max_length=255, unique=True)
