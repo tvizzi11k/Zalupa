@@ -1,4 +1,4 @@
-name: telegrambot
+name: bot
 services:
   app:
     restart: unless-stopped

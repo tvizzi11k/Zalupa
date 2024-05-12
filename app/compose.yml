@@ -1,4 +1,4 @@
-name: megahappy
+name: app
 services:
   app:
     restart: unless-stopped
