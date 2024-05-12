@@ -88,3 +88,14 @@ p {
 
 .ton-cnt-btn{
 }
+
+.go3974562317 {
+  background-color: #0098EA;
+  color: #FFFFFF;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.16);
+  padding: 8px 16px 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 60px;
+}
