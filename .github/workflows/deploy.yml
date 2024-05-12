@@ -16,5 +16,5 @@ jobs:
           docker compose up -d --build
       - name: Start bot
         run: |
-          cd ../bot
+          cd bot
           docker compose up -d --build
