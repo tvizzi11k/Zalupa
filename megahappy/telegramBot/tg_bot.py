@@ -9,6 +9,7 @@ from aiogram.types import Message, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
+
 TOKEN = '7120451302:AAFmiJriqQlj0aDohxsBjIRdTQbbJOMEyhs'
 
 logger = logging.getLogger(__file__)
