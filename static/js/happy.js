@@ -7,8 +7,9 @@ const unsubscribe = tonConnectUI.onStatusChange(state => {
     window.location.replace('/home')
 });
 
-// tonConnectUI.uiOptions = {
-//   uiPreferences: {
-//     borderRadius: 'm'
-// }
-// };
+tonConnectUI.uiOptions = {
+  uiPreferences: {
+    borderRadius: 'm',
+    theme: 'DARK',
+    }
+}
