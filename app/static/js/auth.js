@@ -11,7 +11,7 @@ connector.onStatusChange(walletInfo => {
 
 function auth() {
     const walletConnectionSource = {
-        universalLink: 'https://t.me/wallet',
+        universalLink: 'https://app.tonkeeper.com/ton-connect',
         bridgeUrl: 'https://bridge.tonapi.io/bridge'
     }
     
@@ -19,3 +19,4 @@ function auth() {
     
     window.open(universalLink, '_blank')
 }
+// universalLink: 'https://t.me/wallet',
