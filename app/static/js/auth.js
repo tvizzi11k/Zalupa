@@ -11,7 +11,7 @@ connector.onStatusChange(walletInfo => {
 
 function auth() {
     const walletConnectionSource = {
-        universalLink: 'https://app.tonhub.com/ton-connect',
+        universalLink: 'https://t.me/wallet',
         bridgeUrl: 'https://bridge.tonapi.io/bridge'
     }
     
