@@ -65,6 +65,9 @@ p {
   background-image: url('./img/bg.gif');
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: centre;
 }
 
 .flex { /*Flexbox for containers*/
@@ -76,69 +79,11 @@ p {
 
 /* весь контент, распологающийся до волны */
 .header {
-  position: relative;
   text-align: center;
-
   color: white;
-}
-
-.inner-header {
   height: 100vh;
   width: 100%;
-  margin: 0;
-  padding-top: 10px;
+  padding-top: 50%;
 }
 
-
-@media screen and (min-height: 600px){
-  div[data-tc-button="true"]{
-    margin-top: 50%;
-  }
-
-  [data-tc-icon-button="true"]{
-    width: 40px;
-    height: 40px;
-  } 
-
-  [data-tc-wallet-item="true"]{
-    width: 90%;
-    height: 700px;
-  }
-
-  [data-tc-wallets-modal-universal-mobile="true"]{
-    width: 800px;
-  }
-
-  [data-tc-modal="true"]{
-    display: block;
-    widght: 300px;
-  }
 }
-/* button[data-tc-button="true"] {
-  width: 600px;
-  height: 131px;
-  align-items: center;
-  text-align: center;
-  border-radius: 20px;
-  background-color: rgba(0, 0, 0, 0.1);
-  box-shadow: 0px -5px 10px 5px rgba(0, 255, 255, 0.5), 1px 2px 4px 0px rgba(0, 255, 255, 0.3), 2px 4px 8px 0px rgba(0, 255, 255, 0.2);
-  font-family: "Press Start 2P", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-size: 20px;
-}
-
-@media screen and (min-height: 600px){
-
-  [data-tc-wallets-modal-universal-mobile="true"]{
-    height: 1200px;
-    width: 800px
-  }
-
-[data-tc-wallets-modal-universal-mobile="true"]{
-  height: 1200px;
-  width: 800px;
-  background-color: #FFFFFF;
-  border-radius: 24px;
- }
-} */
