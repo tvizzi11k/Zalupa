@@ -62,7 +62,7 @@ p {
 }
 
 .container{
-  background-image: url('./static/img/bg.gif');
+  background-image: url('../static/img/bg.gif');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
