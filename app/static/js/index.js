@@ -5,4 +5,3 @@ function Autorization(){
     window.location.replace('/')
   }
 }
-

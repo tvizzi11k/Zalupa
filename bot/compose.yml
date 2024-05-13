@@ -1,4 +1,4 @@
-name: megahappy
+name: bot
 services:
   app:
     restart: unless-stopped
