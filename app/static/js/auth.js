@@ -6,15 +6,6 @@ connector.restoreConnection();
 
 connector.onStatusChange(walletInfo => {
     console.log(walletInfo)
-
-    // window.localStorage.setItem("ton", JSON.stringify(walletInfo))
-
-    // const walletConnectionSource = {
-    //     jsBridgeKey: 'wallet'
-    // }
-    
-    // connector.connect(walletConnectionSource);
-
     window.location.replace('/home')
 })
 
