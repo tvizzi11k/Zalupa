@@ -2,5 +2,7 @@ name: app
 services:
   app:
     restart: unless-stopped
-    build: app.Dockerfile
+    build:
+      context: .
+      dockerfile: app.Dockerfile
     network_mode: host
