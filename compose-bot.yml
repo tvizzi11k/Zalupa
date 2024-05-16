@@ -2,5 +2,5 @@ name: bot
 services:
   app:
     restart: unless-stopped
-    build: .
+    build: bot.Dockerfile
     network_mode: host

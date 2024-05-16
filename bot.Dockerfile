@@ -5,4 +5,4 @@ RUN apt install gcc pkg-config default-libmysqlclient-dev
 COPY requirements.txt /code/
 RUN pip --disable-pip-version-check install --no-compile -r requirements.txt
 COPY . /code/
-CMD [ "python", "./megahappy/manage.py", "runserver", "0.0.0.0:8000" ]
+CMD [ "python", "./bot/bot.py" ]
