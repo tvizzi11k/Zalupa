@@ -89,10 +89,6 @@ p {
   align-items: center;
   align-content: center;
   justify-content: center;
-  background-image: url('/static/img/bg.gif');
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-
 }
 
 .img{
@@ -113,8 +109,31 @@ p {
 	opacity: 0.5;
 }
 
+.ton-connect{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  width: 400px;
+  height: 100px;
+  box-shadow: 0px 10px 30px 15px rgba(0,255,255,0.7),
+  1px 2px 4px 0px rgba(0,255,255,0.7),
+  2px 4px 8px 0px rgba(0,255,255,0.7),
+  2px 4px 16px 0px rgba(0,255,255,0.7);
+  border-radius: 10px;
+  background-image: linear-gradient(241deg, rgb(000, 000, 000, 0.4) 0% ,rgb(136, 118, 236, 0.8) 100%);
+  font-family: "Press Start 2P", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 25px;
+}
+
 @media screen and (min-height: 600px){
-  div.ton-connect{
+.ton-connect{
     position: absolute;
     z-index: 10;
     top: 50%;
@@ -128,8 +147,7 @@ p {
     font-weight: 300;
     font-size: 10px;
     line-height: 25px;
-    border-rdius: 10px;
-    background: none;
+    border-radius: 10px;
   }
   
   button[data-tc-button="true"]{
