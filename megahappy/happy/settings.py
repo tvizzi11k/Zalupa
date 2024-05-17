@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'beHappyDb',
         'USER': 'admin',
         'PASSWORD': 'beHappy1234',
-        'HOST': '127.0.0.1',
+        'HOST': '176-99-11-185.cloudvps.regruhosting.ru',
         'PORT': '3306',
     }
 }
