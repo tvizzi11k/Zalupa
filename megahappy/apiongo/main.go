@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -106,7 +107,26 @@ func main() {
 		if err := c.BindJSON(&req); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
 			return
+
 		}
+
+		var user User
+		if err := db.FirstOrCreate(&user, User{Key: req.Key}).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+			return
+		}
+
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+			"id": user.ID,
+		})
+
+		tokenString, err := token.SignedString(jwtSecret)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server Error"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"token": tokenString})
 	})
 
 }
