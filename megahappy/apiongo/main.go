@@ -11,6 +11,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -62,18 +63,8 @@ type BalanceRequest struct {
 
 // PromoRequest для получения блядского промо чтобы менять блядский баланс
 type PromoRequest struct {
-	Key     string  `json:"key"`
+	Code    string  `json:"key"`
 	Balance float64 `json:"balance"`
-}
-
-func init() {
-	secret := os.Getenv("JWT_SECRET")
-
-	if secret == "" {
-		secret = generateSecretKey()
-	}
-
-	jwtSecret = []byte(secret)
 }
 
 func main() {
@@ -89,6 +80,16 @@ func main() {
 
 	r := gin.Default()
 
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},                            // Разрешить все домены или укажите разрешенные домены
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"}, // Разрешенные методы
+		AllowedHeaders:   []string{"Origin", "Content-Type"},       // Разрешенные заголовки
+		ExposedHeaders:   []string{"Content-Length"},
+		AllowCredentials: true,
+	})
+
+	r.Use(c)
+
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		config.MySQLUsername, config.MySQLPassword, config.MySQLHost, config.MySQLPort, config.MySQLDbname)
 
@@ -102,31 +103,88 @@ func main() {
 		log.Fatal("Failed to migrate", err)
 	}
 
-	r.POST("/login", func(c *gin.Context) {
+	r.POST("/create-user", func(c *gin.Context) {
 		var req LoginRequest
 		if err := c.BindJSON(&req); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
 			return
+		}
 
+		// Это пример проверки JWT токена. Вы можете менять его под свои нужды и требования.
+		token, err := jwt.ParseWithClaims(req.Key, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+			return jwtSecret, nil
+		})
+
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+			return
+		}
+
+		claims, ok := token.Claims.(*jwt.StandardClaims)
+		if !ok || !token.Valid {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+			return
 		}
 
 		var user User
-		if err := db.FirstOrCreate(&user, User{Key: req.Key}).Error; err != nil {
+		// Обновление или создание пользователя в базе данных
+		if err := db.FirstOrCreate(&user, User{Key: claims.Id}).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
 		}
 
-		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-			"id": user.ID,
-		})
+		c.JSON(http.StatusOK, gin.H{"message": "User created or updated successfully"})
+	})
 
-		tokenString, err := token.SignedString(jwtSecret)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server Error"})
+	r.POST("/balance", func(c *gin.Context) {
+		var req BalanceRequest
+		if err := c.BindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{"token": tokenString})
+		if err := db.Model(&User{}).Where("key = ?", req.Key).Update("balance", req.Balance).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"status": "balance updated"})
 	})
+
+	r.POST("/apply-promocode", func(c *gin.Context) {
+		var req PromoRequest
+		if err := c.BindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+			return
+		}
+
+		var promo Promocode
+		if err := db.Where("code = ? AND used = ?", req.Code, false).First(&promo).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid or used promo code"})
+			return
+		}
+
+		var user User
+		if err := db.Where("key = ?", req.Code).First(&user).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
+			return
+		}
+
+		user.Balance += promo.Value
+		if err := db.Save(&user).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+			return
+		}
+
+		promo.Used = true
+		if err := db.Save(&promo).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"status": "promocode applied"})
+	})
+
+	r.Run(":8080")
 
 }
