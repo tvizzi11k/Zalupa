@@ -81,9 +81,9 @@ func main() {
 	r := gin.Default()
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},                            // Разрешить все домены или укажите разрешенные домены
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"}, // Разрешенные методы
-		AllowedHeaders:   []string{"Origin", "Content-Type"},       // Разрешенные заголовки
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedHeaders:   []string{"Origin", "Content-Type"},
 		ExposedHeaders:   []string{"Content-Length"},
 		AllowCredentials: true,
 	})
@@ -110,7 +110,6 @@ func main() {
 			return
 		}
 
-		// Это пример проверки JWT токена. Вы можете менять его под свои нужды и требования.
 		token, err := jwt.ParseWithClaims(req.Key, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
 			return jwtSecret, nil
 		})
@@ -127,7 +126,7 @@ func main() {
 		}
 
 		var user User
-		// Обновление или создание пользователя в базе данных
+
 		if err := db.FirstOrCreate(&user, User{Key: claims.Id}).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
