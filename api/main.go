@@ -1,4 +1,4 @@
-package apiongo
+package main
 
 import (
 	"crypto/rand"
