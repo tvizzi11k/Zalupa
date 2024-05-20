@@ -3,6 +3,5 @@
     "mysqlPassword": "beHappy1234",
     "mysqlDbname": "beHappyDb",
     "mysqlHost": "176-99-11-185.cloudvps.regruhosting.ru",
-    "mysqlPort": "3306",
-    "host": "176-99-11-185.cloudvps.regruhosting.ru"
+    "mysqlPort": "3306"
 }

@@ -193,6 +193,8 @@ func main() {
 		c.File("./templates/home.html")
 	})
 
-	r.Run(":host")
+	os.Getenv("host")
+
+	r.Run(":176-99-11-185.cloudvps.regruhosting.ru")
 
 }
