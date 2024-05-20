@@ -9,7 +9,10 @@ require (
 	gorm.io/gorm v1.25.10
 )
 
-require github.com/rs/cors v1.11.0 // indirect
+require (
+	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/rs/cors v1.11.0 // indirect
+)
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect

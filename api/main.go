@@ -11,6 +11,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	_ "github.com/joho/godotenv/autoload"
 	cors "github.com/rs/cors/wrapper/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -192,6 +193,6 @@ func main() {
 		c.File("./templates/home.html")
 	})
 
-	r.Run(":8080")
+	r.Run(":host")
 
 }
