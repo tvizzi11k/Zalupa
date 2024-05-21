@@ -158,14 +158,12 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"status": "promocode applied"})
 	})
 
-	r.LoadHTMLGlob("templates/*")
-
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
+		c.File("./templates/index.html")
 	})
 
 	r.GET("/home", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "home.html", nil)
+		c.File("./templates/home.html")
 	})
 
 	r.Static("/static", "./static")
