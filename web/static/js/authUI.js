@@ -6,7 +6,7 @@ const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
 tonConnectUI.onStatusChange(console.log)
 
 const unsubscribe = tonConnectUI.onStatusChange(state => {
-  window.location.replace('/home.html')
+  window.location.replace('/home')
 });
 
 const unsubscribeModal = tonConnectUI.onModalStateChange((state) => {
