@@ -1,8 +1,0 @@
-name: app
-services:
-  app:
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: app.Dockerfile
-    network_mode: host
