@@ -1,0 +1,7 @@
+name: behappy
+services:
+  api:
+    build: .
+    network_mode: host
+    env_file:
+      - .env

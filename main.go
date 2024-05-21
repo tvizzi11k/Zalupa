@@ -1,9 +1,7 @@
 package main
 
 import (
-	"crypto/rand"
-	"encoding/base64"
-	"encoding/json"
+	"behappy/bot"
 	"fmt"
 	"log"
 	"net/http"
@@ -18,23 +16,6 @@ import (
 )
 
 var jwtSecret []byte
-
-func generateSecretKey() string {
-	key := make([]byte, 32)
-	if _, err := rand.Read(key); err != nil {
-		panic(err)
-	}
-	return base64.StdEncoding.EncodeToString(key)
-}
-
-// Config содержит настройки для подкл к бд
-type Config struct {
-	MySQLUsername string `json:"mysqlUsername"`
-	MySQLPassword string `json:"mysqlPassword"`
-	MySQLDbname   string `json:"mysqlDbname"`
-	MySQLHost     string `json:"mysqlHost"`
-	MySQLPort     string `json:"mysqlPort"`
-}
 
 // User Предоставляет модель пользователя в бд
 type User struct {
@@ -69,15 +50,7 @@ type PromoRequest struct {
 }
 
 func main() {
-	var config Config
-	configFile, err := os.ReadFile("config.json")
-	if err != nil {
-		log.Fatal("Not found json", err)
-	}
-	err = json.Unmarshal(configFile, &config)
-	if err != nil {
-		log.Fatal("Cant read json", err)
-	}
+	go bot.Run()
 
 	r := gin.Default()
 
@@ -92,7 +65,7 @@ func main() {
 	r.Use(c)
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		config.MySQLUsername, config.MySQLPassword, config.MySQLHost, config.MySQLPort, config.MySQLDbname)
+		os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_NAME"))
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -185,7 +158,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"status": "promocode applied"})
 	})
 
-	r.GET("/index", func(c *gin.Context) {
+	r.GET("/", func(c *gin.Context) {
 		c.File("./templates/index.html")
 	})
 
@@ -193,8 +166,9 @@ func main() {
 		c.File("./templates/home.html")
 	})
 
-	os.Getenv("host")
+	r.Static("/static", "./static")
 
-	r.Run(":176-99-11-185.cloudvps.regruhosting.ru")
+	log.Print("abc")
 
+	log.Fatal(r.Run(os.Getenv("HOST")))
 }
