@@ -20,12 +20,6 @@ const unsubscribe = tonConnectUI.onStatusChange(state => {
 const unsubscribeModal = tonConnectUI.onModalStateChange((state) => {
   const currentModalState = tonConnectUI.modalState;
   console.log(currentModalState)
-    if(currentModalState['status'] == "opened"){
-      console.log("good")
-      ChangeBtnStyles()
-    } else{
-      console.log("bad")
-    }
   }
 );
 
