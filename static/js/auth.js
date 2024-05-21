@@ -1,5 +1,5 @@
 const connector = new TonConnectSDK.TonConnect({
-    manifestUrl: 'https://176-99-11-185.cloudvps.regruhosting.ru/static/ton.json'
+    manifestUrl: 'https://176-99-11-185.cloudvps.regruhosting.ru/static/tonconnect-manifest.json'
 });
 
 connector.restoreConnection();
