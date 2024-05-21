@@ -168,7 +168,5 @@ func main() {
 
 	r.Static("/static", "./static")
 
-	log.Print("abc")
-
 	log.Fatal(r.Run(os.Getenv("HOST")))
 }
