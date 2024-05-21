@@ -158,7 +158,16 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"status": "promocode applied"})
 	})
 
-	r.Static("/", "./web")
+	r.GET("/", func(c *gin.Context) {
+		c.File("./web/index.html")
+	})
+
+	r.GET("/home", func(c *gin.Context) {
+		c.File("./web/home.html")
+	})
+
+	r.Static("/static", "./web/static")
+	r.StaticFile("/tonconnect-manifest.json", "./web/tonconnect-manifest.json")
 
 	log.Fatal(r.Run(os.Getenv("HOST")))
 }
