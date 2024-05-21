@@ -10,14 +10,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: Create .env
-        run: echo -e "TOKEN=${{secrets.TOKEN}}\n
-          HOST=${{secrets.HOST}}\n
-          DB_USERNAME=${{secrets.DB_USERNAME}}\n
-          DB_PASSWORD=${{secrets.DB_PASSWORD}}\n
-          DB_NAME=${{secrets.DB_NAME}}\n
-          DB_HOST=${{secrets.DB_HOST}}\n
-          DB_PORT=${{secrets.DB_PORT}}">> ./.env
       - name: Start app
         run: |
           docker compose up -d --build
