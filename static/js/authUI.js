@@ -4,6 +4,8 @@ const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
   manifestUrl: 'https://github.com/tvizzi11k/Zalupa/tonconnect-manifest.json',
 });
 
+tonConnectUI.onStatusChange(console.log)
+
 const unsubscribe = tonConnectUI.onStatusChange(state => {
   window.location.replace('/home')
 });
