@@ -158,15 +158,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"status": "promocode applied"})
 	})
 
-	r.GET("/", func(c *gin.Context) {
-		c.File("./templates/index.html")
-	})
-
-	r.GET("/home", func(c *gin.Context) {
-		c.File("./templates/home.html")
-	})
-
-	r.Static("/static", "./static")
+	r.Static("/", "./web")
 
 	log.Fatal(r.Run(os.Getenv("HOST")))
 }
