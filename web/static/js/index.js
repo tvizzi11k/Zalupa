@@ -13,3 +13,13 @@ async function disconect(){
   await tonConnectUI.disconnect();
   window.location.replace('/')
 }
+
+let promo  = document.getElementById('promo')
+
+// add some event listeners to the Element
+promo.addEventListener('click', e=> console.log('click!') );
+promo.addEventListener('click', e=> console.log('click 2!') );
+promo.addEventListener('mouseover', e=> console.log('mouse over!') );
+
+// retrieve the listeners
+console.log( promo.getEventListeners() );
