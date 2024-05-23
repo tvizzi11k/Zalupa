@@ -6,16 +6,22 @@ const unsubscribe = tonConnectUI.onStatusChange(state => {
   window.location.replace('/home')
 });
 
-const unsubscribeModal = tonConnectUI.onModalStateChange((state) => {
-  const currentModalState = tonConnectUI.modalState;
-  console.log(currentModalState)
-  }
-);
+// const unsubscribeModal = tonConnectUI.onModalStateChange((state) => {
+//   const currentModalState = tonConnectUI.modalState;
+//   console.log(currentModalState)
+//   }
+// );
 
-function ChangeBtnStyles(){
-  let btn = document.querySelector('[data-tc-button="true"]');
-}
+// function ChangeBtnStyles(){
+//   let btn = document.querySelector('[data-tc-button="true"]');
+// }
 
 async function modal() {
   await tonConnectUI.openModal();
 }
+
+const unsubscribeWallet = tonConnectUI.onStatusChange(
+  walletAndwalletInfo => {
+      console.log(walletAndwalletInfo)
+  } 
+);

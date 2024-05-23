@@ -17,9 +17,8 @@ async function disconect(){
 let promo  = document.getElementById('promo')
 
 // add some event listeners to the Element
-promo.addEventListener('click', e=> console.log('click!') );
-promo.addEventListener('click', e=> console.log('click 2!') );
-promo.addEventListener('mouseover', e=> console.log('mouse over!') );
+promo.addEventListener('click', function(){});
 
+let res = promo.getEventListeners();
 // retrieve the listeners
-console.log( promo.getEventListeners() );
+console.log(res);
