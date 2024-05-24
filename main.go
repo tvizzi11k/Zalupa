@@ -184,14 +184,15 @@ func main() {
 	})
 
 	r.GET("/", func(c *gin.Context) {
-		c.File("./templates/index.html")
+		c.File("./web/index.html")
 	})
 
 	r.GET("/home", func(c *gin.Context) {
-		c.File("./templates/home.html")
+		c.File("./web/home.html")
 	})
 
-	r.Static("/static", "./static")
+	r.Static("/static", "./web/static")
+	r.StaticFile("/tonconnect-manifest.json", "./web/tonconnect-manifest.json")
 
 	log.Fatal(r.Run(os.Getenv("HOST")))
 }

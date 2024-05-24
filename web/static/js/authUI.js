@@ -1,17 +1,6 @@
-// Autorization()
-
-// function Autorization(){
-//   if (localStorage.getItem('ton-connect-storage_bridge-connection') === null) {
-//     window.location.replace('/')
-//   }
-// }
-
 const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-  manifestUrl: 'https://176-99-11-185.cloudvps.regruhosting.ru/home/tonconnect-manifest.json',
-  // manifestUrl: 'https://github.com/tvizzi11k/Zalupa/tonconnect-manifest.json',
+  manifestUrl: 'https://176-99-11-185.cloudvps.regruhosting.ru/tonconnect-manifest.json',
 });
-
-tonConnectUI.onStatusChange(console.log)
 
 const unsubscribe = tonConnectUI.onStatusChange(state => {
   window.location.replace('/home')
