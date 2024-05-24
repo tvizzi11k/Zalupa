@@ -158,6 +158,31 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"status": "promocode applied"})
 	})
 
+	r.GET("/get-balance", func(c *gin.Context) {
+		authHeader := c.GetHeader("Authorization")
+
+		if authHeader == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization failed"})
+			return
+		}
+
+		tokenString := authHeader
+
+		var user User
+		if err := db.Where("key = ?", tokenString).First(&user).Error; err != nil {
+			// если юзера ебаного нет то создаем нового
+			newUser := User{Key: tokenString, Balance: 0.0}
+			if createErr := db.Create(&newUser).Error; createErr != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+				return
+			}
+			c.JSON(http.StatusOK, gin.H{"balance": newUser.Balance})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"balance": user.Balance})
+	})
+
 	r.GET("/", func(c *gin.Context) {
 		c.File("./web/index.html")
 	})
