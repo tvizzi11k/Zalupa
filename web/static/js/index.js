@@ -67,7 +67,7 @@ async function redeemPromoCode(params) {
     /* POST Promo Code */
 
     await fetch(
-      "https://api.example.com/redeem-promo-code/", // URL ENDPOINT TO GET BALANCE
+      "https://176-99-11-185.cloudvps.regruhosting.ru//apply-promocode", // URL ENDPOINT TO GET BALANCE
       {
         method: "POST",
         cache: "no-cache",
