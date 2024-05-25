@@ -9,20 +9,18 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
 	cors "github.com/rs/cors/wrapper/gin"
 	"gorm.io/gorm"
 )
 
-var jwtSecret []byte
-
 // User Предоставляет модель пользователя в бд
 type User struct {
 	ID      uint    `gorm:"primaryKey"`
 	Key     string  `gorm:"unique;not null"`
 	Balance float64 `gorm:"default:0"`
+	Admin   bool    `gorm:"default:false"`
 }
 
 // Promocode представляет модель промокода в бд
@@ -45,20 +43,24 @@ type PromoRequest struct {
 	Code string `json:"code"`
 }
 
+type CreatePromoRequest struct {
+	Code  string  `json:"code"`
+	Value float64 `json:"value"`
+	Max   int64   `json:"max"`
+}
+
 func main() {
 	go bot.Run()
 
 	r := gin.Default()
 
-	c := cors.New(cors.Options{
+	r.Use(cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders:   []string{"Origin", "Content-Type"},
 		ExposedHeaders:   []string{"Content-Length"},
 		AllowCredentials: true,
-	})
-
-	r.Use(c)
+	}))
 
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		os.Getenv("DB_HOST"), os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"), os.Getenv("DB_PORT"))
@@ -73,40 +75,9 @@ func main() {
 		log.Fatal("Failed to migrate", err)
 	}
 
-	r.POST("/create-user", func(c *gin.Context) {
-		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
-			return
-		}
-
-		token, err := jwt.ParseWithClaims(authHeader, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-			return jwtSecret, nil
-		})
-
-		if err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-			return
-		}
-
-		claims, ok := token.Claims.(*jwt.StandardClaims)
-		if !ok || !token.Valid {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-			return
-		}
-
-		var user User
-
-		if err := db.FirstOrCreate(&user, User{Key: claims.Id}).Error; err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
-			return
-		}
-
-		c.JSON(http.StatusOK, gin.H{"message": "User created or updated successfully"})
-	})
 	r.POST("/balance", func(c *gin.Context) {
-		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
+		address := c.GetHeader("Authorization")
+		if address == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
 			return
 		}
@@ -118,7 +89,7 @@ func main() {
 		}
 
 		var user User
-		if err := db.Where("key = ?", authHeader).First(&user).Error; err != nil {
+		if err := db.Where("key = ?", address).First(&user).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
 			return
 		}
@@ -133,9 +104,9 @@ func main() {
 	})
 
 	r.POST("/apply-promocode", func(c *gin.Context) {
-		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization"})
+		address := c.GetHeader("Authorization")
+		if address == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
 			return
 		}
 
@@ -146,7 +117,7 @@ func main() {
 		}
 
 		var promo Promocode
-		if err := db.Where("code = ?", req.Code, false).First(&promo).Error; err != nil {
+		if err := db.Where("code = ?", req.Code).First(&promo).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid promocode"})
 			return
 		}
@@ -157,7 +128,7 @@ func main() {
 		}
 
 		var user User
-		if err := db.Where("key = ?", authHeader).First(&user).Error; err != nil {
+		if err := db.Where("key = ?", address).First(&user).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
 			return
 		}
@@ -178,21 +149,51 @@ func main() {
 
 	})
 
-	r.GET("/get-balance", func(c *gin.Context) {
-		authHeader := c.GetHeader("Authorization")
-
-		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization failed"})
+	r.POST("/create-promocode", func(c *gin.Context) {
+		address := c.GetHeader("Authorization")
+		if address == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
 			return
 		}
 
-		tokenString := authHeader
+		var req CreatePromoRequest
+		if err := c.BindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid body"})
+			return
+		}
 
 		var user User
-		if err := db.Where("key = ?", tokenString).First(&user).Error; err != nil {
+		if err := db.Where("key = ? and admin = true", address).First(&user).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found or not admin"})
+			return
+		}
+
+		promo := Promocode{
+			Code:  req.Code,
+			Value: req.Value,
+			Max:   req.Max,
+		}
+
+		if err := db.Save(&promo).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"status": "promocode created"})
+	})
+
+	r.GET("/get-balance", func(c *gin.Context) {
+		address := c.GetHeader("Authorization")
+		if address == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
+			return
+		}
+
+		var user User
+		if err := db.Where("key = ?", address).First(&user).Error; err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				// если юзера ебаного нет то создаем нового
-				newUser := User{Key: tokenString, Balance: 0.0}
+				newUser := User{Key: address, Balance: 0.0}
 				if createErr := db.Create(&newUser).Error; createErr != nil {
 					c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 					return
@@ -214,6 +215,10 @@ func main() {
 
 	r.GET("/home", func(c *gin.Context) {
 		c.File("./web/home.html")
+	})
+
+	r.GET("/admin", func(c *gin.Context) {
+		c.File("./web/admin.html")
 	})
 
 	r.Static("/static", "./web/static")
