@@ -48,7 +48,7 @@ async function fetchDashboardData(params) {
 
     /* Update Balance DOM */
 
-    const balanceText = document.getElementById(balanceTextId);
+    const balanceText = document.getElementById('balance-counter');
 
     balanceText.textContent = Number(response.balance).toLocaleString("ru-RU");
   } catch (error) {
