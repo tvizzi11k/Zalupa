@@ -2,6 +2,7 @@ package main
 
 import (
 	"behappy/bot"
+	"errors"
 	"fmt"
 	"gorm.io/driver/postgres"
 	"log"
@@ -185,13 +186,18 @@ func main() {
 
 		var user User
 		if err := db.Where("key = ?", tokenString).First(&user).Error; err != nil {
-			// если юзера ебаного нет то создаем нового
-			newUser := User{Key: tokenString, Balance: 0.0}
-			if createErr := db.Create(&newUser).Error; createErr != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				// если юзера ебаного нет то создаем нового
+				newUser := User{Key: tokenString, Balance: 0.0}
+				if createErr := db.Create(&newUser).Error; createErr != nil {
+					c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+					return
+				}
+				c.JSON(http.StatusOK, gin.H{"balance": newUser.Balance})
 				return
 			}
-			c.JSON(http.StatusOK, gin.H{"balance": newUser.Balance})
+
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
 		}
 
