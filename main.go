@@ -40,8 +40,7 @@ type BalanceRequest struct {
 
 // PromoRequest для получения блядского промо чтобы менять блядский баланс
 type PromoRequest struct {
-	Code    string  `json:"key"`
-	Balance float64 `json:"balance"`
+	Code string `json:"code"`
 }
 
 func main() {
@@ -157,7 +156,7 @@ func main() {
 		}
 
 		user.Balance += promo.Value
-		if err := db.Save(&promo).Error; err != nil {
+		if err := db.Save(&user).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
 		}

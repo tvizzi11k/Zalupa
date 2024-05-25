@@ -79,7 +79,7 @@ async function redeemPromoCode(params) {
           Authorization: getUserKey(),
         }),
         body: JSON.stringify({
-          code: params.promoCode,
+          code: document.getElementById("promo-input").value,
         }),
       }
     );
