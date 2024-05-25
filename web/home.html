@@ -1,134 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-  <link rel="stylesheet" href="/static/index.css">
-  <script src="https://unpkg.com/@tonconnect/ui@2.0.2/dist/tonconnect-ui.min.js"></script>
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="stylesheet" href="/static/index.css">
+    <script src="https://unpkg.com/@tonconnect/ui@2.0.2/dist/tonconnect-ui.min.js"></script>
+    <title>Document</title>
 </head>
 <body>
-  <div class="container">
+<div class="container">
     <div class="header">
-      <div class="inner-header flex">
-        <div class="ton-disconnect" onclick="disconect()">Disconect Wallet</div>
-        <img src="/static/img/logo-BEHAPPY.png" alt="logo-BEHAPPY" height="120" class="header__logo">
-        <div class="card">
-          <div class="card-top">
-            <p>Current Balance</p>
-            <img src="/static/img/logo-visa.png" alt="visa" height="30">
-          </div>
-          <div class="counter"> 
-            <h1>
-              <img src="" alt="">
-              <span id="balance-counter">
+        <div class="inner-header flex">
+            <div class="ton-disconnect" onclick="disconect()">Disconect Wallet</div>
+            <img src="/static/img/logo-BEHAPPY.png" alt="logo-BEHAPPY" height="120" class="header__logo">
+            <div class="card">
+                <div class="card-top">
+                    <p>Current Balance</p>
+                    <img src="/static/img/logo-visa.png" alt="visa" height="30">
+                </div>
+                <div class="counter">
+                    <h1>
+                        <img src="" alt="">
+                        <span id="balance-counter">
                   0
               </span>
-            </h1>
-          </div>
-          <ul class="card-number">
-            <li class="card-number__item">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-            </li>
-            <li class="card-number__item ">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-            </li>
-            <li class="card-number__item ">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-              <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
-            </li>
-            <li class="card-number__item ">
-              <div class="card-number__value dots">1</div>
-              <div class="card-number__value dots">2</div>
-              <div class="card-number__value dots">3</div>
-              <div class="card-number__value dots">4</div>
-            </li>
-          </ul>
-          <div class="card-down">
-            <p>Happy bank</p>
-            <p>09/23</p>
-          </div>
-      </div>
-      <div style="position: relative;">
-        <input class="form-input__control" type="text" maxlength="23" id="promo-input" placeholder="Введите промокод">
-        <button class="form-input__btn" id="promo-btn" type="button">Отправить</button>
-      </div>
+                    </h1>
+                </div>
+                <ul class="card-number">
+                    <li class="card-number__item">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                    </li>
+                    <li class="card-number__item ">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                    </li>
+                    <li class="card-number__item ">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                        <img src="/static/img/Ellipse 7.png" alt="" height="10" class="dots">
+                    </li>
+                    <li class="card-number__item ">
+                        <div class="card-number__value dots">1</div>
+                        <div class="card-number__value dots">2</div>
+                        <div class="card-number__value dots">3</div>
+                        <div class="card-number__value dots">4</div>
+                    </li>
+                </ul>
+                <div class="card-down">
+                    <p>Happy bank</p>
+                    <p>09/23</p>
+                </div>
+            </div>
+            <div style="position: relative;">
+                <input class="form-input__control" type="text" maxlength="23" id="promo-input"
+                       placeholder="Введите промокод">
+                <button class="form-input__btn" id="promo-btn" type="button">Отправить</button>
+            </div>
+        </div>
+        <div class="footer flex">
+            <div class="rdmap">
+                <div class="circle-container">
+                    <div class="circle-rnmap">
+                        <p class="circle-rnmap-num">1</p>
+                    </div>
+                    <p class="circle-rmap-text">Раздача</p>
+                </div>
+                <div class="progress2"></div>
+                <div class="circle-container">
+                    <div class="circle-rnmap2">
+                        <p class="circle-rnmap-num grey">2</p>
+                    </div>
+                    <p class="circle-rmap-text">Майнинг</p>
+                </div>
+                <div class="progress3"></div>
+                <div class="circle-container">
+                    <div class="circle-rnmap3">
+                        <p class="circle-rnmap-num grey">3</p>
+                    </div>
+                    <p class="circle-rmap-text">NFT</p>
+                </div>
+                <div class="progress"></div>
+                <div class="circle-container">
+                    <div class="circle-rnmap4">
+                        <p class="circle-rnmap-num grey">4</p>
+                    </div>
+                    <p class="circle-rmap-text">Скоро..</p>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <ul class="nav-menu_cnt">
+                    <li class="nav-menu_btn link-menu">
+                        <a href="#">
+                            <img src="/static/img/person_24dp_FILL0_wght0_GRAD0_opsz24.png" alt="" width="35px"
+                                 height="35px" class="nav-img">
+                        </a>
+                        Аккаунт
+                    </li>
+                    <li class="nav-menu_btn link-menu">
+                        <a href="#" class="disabled">
+                            <img src="/static/img/shopping_cart_24dp_FILL0_wght0_GRAD0_opsz24.png" alt="" width="35px"
+                                 height="35px" class="nav-img">
+                        </a>
+                        Бизнесы
+                    </li>
+                    <li class="nav-menu_btn link-menu">
+                        <a href="#" class="disabled">
+                            <img src="/static/img/account_balance_24dp.png" alt="" width="35px" height="35px"
+                                 class="nav-img">
+                        </a>
+                        Магазин
+                    </li>
+                    <li class="nav-menu_btn link-menu">
+                        <a href="#" class="disabled">
+                            <img src="/static/img/diamond_24dp_FILL0_wght0_GRAD0_opsz24.png" alt="" width="35px"
+                                 height="35px" class="nav-img">
+                        </a>
+                        Бонусы
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="footer flex">
-      <div class="rdmap">
-        <div class="circle-container">
-          <div class="circle-rnmap">
-            <p class="circle-rnmap-num">1</p>
-          </div>
-          <p class= "circle-rmap-text">Раздача</p>
-        </div>
-        <div class="progress2"></div>
-        <div class="circle-container">
-          <div class="circle-rnmap2">
-            <p class="circle-rnmap-num grey">2</p>
-          </div>
-          <p class= "circle-rmap-text">Майнинг</p>
-        </div>
-        <div class="progress3"></div>
-        <div class="circle-container">
-          <div class="circle-rnmap3">
-            <p class="circle-rnmap-num grey">3</p>
-          </div>
-          <p class= "circle-rmap-text">NFT</p>
-        </div>
-        <div class="progress"></div>
-        <div class="circle-container">
-          <div class="circle-rnmap4">
-            <p class="circle-rnmap-num grey">4</p>
-          </div>
-          <p class= "circle-rmap-text">Скоро..</p>
-        </div>
-      </div> 
-      <div class="nav-menu">
-        <ul class="nav-menu_cnt">
-          <li class="nav-menu_btn link-menu">
-            <a href="#">
-              <img src="/static/img/person_24dp_FILL0_wght0_GRAD0_opsz24.png" alt="" width="35px" height="35px" class="nav-img">
-            </a>
-            Аккаунт
-          </li>
-          <li class="nav-menu_btn link-menu">
-            <a href="#" class="disabled">
-              <img src="/static/img/shopping_cart_24dp_FILL0_wght0_GRAD0_opsz24.png" alt="" width="35px" height="35px" class="nav-img">
-            </a>
-            Бизнесы
-          </li>
-          <li class="nav-menu_btn link-menu">
-            <a href="#" class="disabled">
-              <img src="/static/img/account_balance_24dp.png" alt="" width="35px" height="35px" class="nav-img">
-            </a>
-            Магазин
-          </li>
-          <li class="nav-menu_btn link-menu">
-            <a href="#" class="disabled">
-              <img src="/static/img/diamond_24dp_FILL0_wght0_GRAD0_opsz24.png" alt="" width="35px" height="35px" class="nav-img">
-            </a>
-            Бонусы
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
- </div>
- <script src="/static/js/index.js"></script>
- <script>
-  const key = getUserKey();
-  fetchDashboardData({
-    token: key
-  })
- </script>
+</div>
+<script src="/static/js/index.js"></script>
+<script>
+    fetchDashboardData()
+
+    document.getElementById('promo-btn').addEventListener("click", redeemPromoCode)
+</script>
 </body>
 </html>

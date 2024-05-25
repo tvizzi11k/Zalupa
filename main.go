@@ -30,7 +30,8 @@ type Promocode struct {
 	ID    uint    `gorm:"primaryKey"`
 	Code  string  `gorm:"unique;not null"`
 	Value float64 `gorm:"not null"`
-	Used  bool    `gorm:"default:false"`
+	Used  int64   `gorm:"not null;default:0"`
+	Max   int64   `gorm:"not null"`
 }
 
 // BalanceRequest залупня для баланса
@@ -140,20 +141,23 @@ func main() {
 
 		var req PromoRequest
 		if err := c.BindJSON(&req); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid req"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid body"})
 			return
 		}
 
 		var promo Promocode
-		if err := db.Where("code = ? AND used = ?", req.Code, false).First(&promo).Error; err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid or used promo"})
+		if err := db.Where("code = ?", req.Code, false).First(&promo).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid promocode"})
+			return
+		}
+
+		if promo.Used >= promo.Max {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Promocode is used"})
 			return
 		}
 
 		var user User
 		if err := db.Where("key = ?", authHeader).First(&user).Error; err != nil {
-			log.Printf("Err: %v", err)
-			log.Printf("Key: %s", authHeader)
 			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
 			return
 		}
@@ -164,7 +168,7 @@ func main() {
 			return
 		}
 
-		promo.Used = true
+		promo.Used++
 		if err := db.Save(&promo).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
