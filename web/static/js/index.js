@@ -41,7 +41,7 @@ async function fetchDashboardData(params) {
         cache: "no-cache",
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: params.token,
+          Authorization: getUserKey(),
         }),
       }
     ).then((response) => response.json());
@@ -73,7 +73,7 @@ async function redeemPromoCode(params) {
         cache: "no-cache",
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: params.token,
+          Authorization: getUserKey(),
         }),
         body: JSON.stringify({
           code: params.promoCode,
