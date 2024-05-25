@@ -151,6 +151,7 @@ func main() {
 
 		var user User
 		if err := db.Where("key = ?", authHeader).First(&user).Error; err != nil {
+			log.Printf("Err: %v", err)
 			log.Printf("Key: %s", authHeader)
 			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
 			return
