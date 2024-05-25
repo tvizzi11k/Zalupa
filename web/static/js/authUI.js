@@ -19,9 +19,3 @@ const unsubscribe = tonConnectUI.onStatusChange(state => {
 async function modal() {
   await tonConnectUI.openModal();
 }
-
-const unsubscribeWallet = tonConnectUI.onStatusChange(
-  walletAndwalletInfo => {
-      console.log(walletAndwalletInfo)
-  } 
-);
