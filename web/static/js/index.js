@@ -58,10 +58,13 @@ async function fetchDashboardData(params) {
   }
 }
 
+
+let promo = document.getElementById('promo-btn');
 /**
  * Func for redeem promo code
  * @param {{ token: string; promoCode: string }} params
  */
+promo.addEventListener("click",
 async function redeemPromoCode(params) {
   try {
     /* POST Promo Code */
@@ -90,3 +93,4 @@ async function redeemPromoCode(params) {
     alert("[DASHBOARD#REDEEM_PROMO_CODE]: Unknown error");
   }
 }
+)
