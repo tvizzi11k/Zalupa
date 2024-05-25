@@ -32,11 +32,6 @@ type Promocode struct {
 	Used  bool    `gorm:"default:false"`
 }
 
-// LoginRequest запрос на вход
-type LoginRequest struct {
-	Key string `json:"key"`
-}
-
 // BalanceRequest залупня для баланса
 type BalanceRequest struct {
 	Key     string  `json:"key"`
@@ -78,13 +73,13 @@ func main() {
 	}
 
 	r.POST("/create-user", func(c *gin.Context) {
-		var req LoginRequest
-		if err := c.BindJSON(&req); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+		authHeader := c.GetHeader("Authorization")
+		if authHeader == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
 			return
 		}
 
-		token, err := jwt.ParseWithClaims(req.Key, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		token, err := jwt.ParseWithClaims(authHeader, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
 			return jwtSecret, nil
 		})
 
@@ -108,15 +103,27 @@ func main() {
 
 		c.JSON(http.StatusOK, gin.H{"message": "User created or updated successfully"})
 	})
-
 	r.POST("/balance", func(c *gin.Context) {
+		authHeader := c.GetHeader("Authorization")
+		if authHeader == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
+			return
+		}
+
 		var req BalanceRequest
 		if err := c.BindJSON(&req); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
 			return
 		}
 
-		if err := db.Model(&User{}).Where("key = ?", req.Key).Update("balance", req.Balance).Error; err != nil {
+		var user User
+		if err := db.Where("key = ?", authHeader).First(&user).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
+			return
+		}
+
+		user.Balance = req.Balance
+		if err := db.Save(&user).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
 		}
@@ -125,26 +132,32 @@ func main() {
 	})
 
 	r.POST("/apply-promocode", func(c *gin.Context) {
+		authHeader := c.GetHeader("Authorization")
+		if authHeader == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization"})
+			return
+		}
+
 		var req PromoRequest
 		if err := c.BindJSON(&req); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid req"})
 			return
 		}
 
 		var promo Promocode
 		if err := db.Where("code = ? AND used = ?", req.Code, false).First(&promo).Error; err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid or used promo code"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid or used promo"})
 			return
 		}
 
 		var user User
-		if err := db.Where("key = ?", req.Code).First(&user).Error; err != nil {
+		if err := db.Where("key = ?", authHeader).First(&user).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
 			return
 		}
 
 		user.Balance += promo.Value
-		if err := db.Save(&user).Error; err != nil {
+		if err := db.Save(&promo).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
 		}
@@ -156,6 +169,7 @@ func main() {
 		}
 
 		c.JSON(http.StatusOK, gin.H{"status": "promocode applied"})
+
 	})
 
 	r.GET("/get-balance", func(c *gin.Context) {
