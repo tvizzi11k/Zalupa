@@ -119,8 +119,19 @@ p {
 }
 
 .counter{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px; 
   text-align: left;
+}
+
+.count{
+  font-family: "Press Start 2P", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 20px;
 }
 
 .card-number{

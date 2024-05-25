@@ -23,8 +23,8 @@ async function createPromoCode() {
               }),
               body: JSON.stringify({
                   code: document.getElementById("promo-input").value,
-                  value: document.getElementById("promo-value-input").value,
-                  max: document.getElementById("promo-count-input").value,
+                  value: parseInt(document.getElementById("promo-value-input").value),
+                  max: parseInt(document.getElementById("promo-count-input").value),
               }),
           }
       );
