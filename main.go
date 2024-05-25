@@ -2,7 +2,9 @@ package main
 
 import (
 	"behappy/bot"
+	"errors"
 	"fmt"
+	"gorm.io/driver/postgres"
 	"log"
 	"net/http"
 	"os"
@@ -11,7 +13,6 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
 	cors "github.com/rs/cors/wrapper/gin"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
@@ -40,8 +41,7 @@ type BalanceRequest struct {
 
 // PromoRequest для получения блядского промо чтобы менять блядский баланс
 type PromoRequest struct {
-	Code    string  `json:"key"`
-	Balance float64 `json:"balance"`
+	Code string `json:"code"`
 }
 
 func main() {
@@ -59,10 +59,10 @@ func main() {
 
 	r.Use(c)
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_NAME"))
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		os.Getenv("DB_HOST"), os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"), os.Getenv("DB_PORT"))
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect", err)
 	}
@@ -152,12 +152,14 @@ func main() {
 
 		var user User
 		if err := db.Where("key = ?", authHeader).First(&user).Error; err != nil {
+			log.Printf("Err: %v", err)
+			log.Printf("Key: %s", authHeader)
 			c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
 			return
 		}
 
 		user.Balance += promo.Value
-		if err := db.Save(&promo).Error; err != nil {
+		if err := db.Save(&user).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
 		}
@@ -184,13 +186,18 @@ func main() {
 
 		var user User
 		if err := db.Where("key = ?", tokenString).First(&user).Error; err != nil {
-			// если юзера ебаного нет то создаем нового
-			newUser := User{Key: tokenString, Balance: 0.0}
-			if createErr := db.Create(&newUser).Error; createErr != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				// если юзера ебаного нет то создаем нового
+				newUser := User{Key: tokenString, Balance: 0.0}
+				if createErr := db.Create(&newUser).Error; createErr != nil {
+					c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
+					return
+				}
+				c.JSON(http.StatusOK, gin.H{"balance": newUser.Balance})
 				return
 			}
-			c.JSON(http.StatusOK, gin.H{"balance": newUser.Balance})
+
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Server error"})
 			return
 		}
 
